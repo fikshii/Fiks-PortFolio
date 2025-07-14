@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, FC, ReactNode } from 'react';
 import { motion, useInView, useScroll, useTransform, Variants, AnimatePresence } from 'framer-motion';
+import Image from 'next/image'; // Direkomendasikan untuk menggunakan next/image
 
 // --- TIPE DATA ---
 
@@ -11,7 +12,6 @@ interface SocialLink {
   icon: ReactNode;
 }
 
-// --- tipe Project ---
 interface Project {
   title: string;
   category: string;
@@ -111,7 +111,6 @@ const socialLinks: SocialLink[] = [
     }
 ];
 
-// --- Project Card ---
 const projects: Project[] = [
   {
     title: 'Bangka Hire',
@@ -121,7 +120,7 @@ const projects: Project[] = [
     imageUrl: '/bhire.png',
     liveUrl: 'https://www.figma.com/proto/5szyZv2qK4CScjk19fBTp3/EcoGo?node-id=3028-6036&p=f&t=IOgSos8g0rryQVxi-1&scaling=scale-down&content-scaling=fixed&page-id=3007%3A16795&starting-point-node-id=3028%3A6033&show-proto-sidebar=1',
   },
-      {
+  {
     title: 'OneTik',
     category: 'Mobile Apps',
     description: 'A mobile application designed to make it easier for users to purchase concert tickets and donate to charities, particularly those affected by natural disasters..',
@@ -199,6 +198,9 @@ const Section: FC<SectionProps> = ({ children, id, className = '' }) => {
 };
 
 const ProjectCard: FC<ProjectCardProps> = ({ project, className = '' }) => {
+    // State untuk mengontrol visibilitas overlay di mobile dan desktop
+    const [isHovered, setIsHovered] = useState(false);
+
     const overlayVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
@@ -220,14 +222,30 @@ const ProjectCard: FC<ProjectCardProps> = ({ project, className = '' }) => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className={`w-full ${className}`}
         >
+            {/* Mengganti whileHover dengan event handler manual untuk mobile & desktop */}
             <motion.div
                 className="relative overflow-hidden rounded-xl group shadow-lg h-full"
                 data-hover
-                initial="hidden"
-                whileHover="visible"
+                onHoverStart={() => setIsHovered(true)}
+                onHoverEnd={() => setIsHovered(false)}
+                onTap={() => setIsHovered(!isHovered)} // Toggle untuk sentuhan di mobile
             >
-                <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105" />
-                <motion.div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/50 to-transparent" variants={overlayVariants}>
+                {/* Menggunakan next/image untuk optimasi */}
+                <Image 
+                  src={project.imageUrl} 
+                  alt={project.title} 
+                  width={500}
+                  height={300}
+                  className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105" 
+                />
+                
+                {/* Mengontrol animasi overlay menggunakan state */}
+                <motion.div 
+                  className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/50 to-transparent" 
+                  variants={overlayVariants}
+                  initial="hidden"
+                  animate={isHovered ? "visible" : "hidden"}
+                >
                     <div className='flex justify-between items-start'>
                         <div>
                             <motion.span variants={itemVariants} className={`inline-block text-sm font-semibold mb-2 px-3 py-1 rounded-full bg-white/20 text-white w-fit`}>
@@ -237,7 +255,6 @@ const ProjectCard: FC<ProjectCardProps> = ({ project, className = '' }) => {
                                 {project.title}
                             </motion.h3>
                         </div>
-                        {/* --- [PERUBAHAN] Hanya menampilkan ikon mata untuk liveUrl --- */}
                         <motion.div variants={itemVariants} className="flex gap-4">
                             {project.liveUrl && (
                                 <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" aria-label="Live demo" className="text-white/80 hover:text-white transition-colors">
@@ -480,13 +497,19 @@ const HeroSection = () => {
                 >
                     <div className="relative w-80 h-80 md:w-96 md:h-96" data-hover>
                         <div className="absolute inset-0 bg-gradient-to-br from-sky-300 to-blue-500 rounded-full blur-xl opacity-70"></div>
-                        <motion.img
-                            src={uiTexts.hero.profilePicture}
-                            alt="Foto Taufik Hidayat"
-                            className="relative w-full h-full object-cover rounded-full shadow-2xl border-4 border-white"
+                        <motion.div
+                            className="relative w-full h-full"
                             whileHover={{ scale: 1.05 }}
                             transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-                        />
+                        >
+                          <Image
+                              src={uiTexts.hero.profilePicture}
+                              alt="Foto Taufik Hidayat"
+                              layout="fill"
+                              objectFit="cover"
+                              className="rounded-full shadow-2xl border-4 border-white"
+                          />
+                        </motion.div>
                     </div>
                 </motion.div>
             </div>
