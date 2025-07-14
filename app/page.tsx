@@ -122,7 +122,7 @@ const projects: Project[] = [
   {
     title: 'OneTik',
     category: 'Mobile Apps',
-    description: 'A mobile application designed to make it easier for users to purchase concert tickets and donate to charities, particularly those affected by natural disasters..',
+    description: 'to make it easier for users to buy concert tickets and donate.',
     tags: ['UX Design', 'UI Design'],
     imageUrl: '/onetik.png',
     liveUrl: 'https://www.figma.com/proto/DsOFpJoanYrx2MnFxbevgl/OneTik?t=GbFT5DKZzWrnCcDB-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&node-id=3-2&starting-point-node-id=3%3A2',
