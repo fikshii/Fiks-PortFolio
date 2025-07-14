@@ -2,7 +2,7 @@
 
 Selamat datang di repositori kode untuk situs portofolio pribadi saya. Situs ini dibuat untuk menampilkan berbagai proyek, pengalaman, dan keahlian saya dalam bidang desain serta pengembangan web modern.
 
-🔗 **Lihat Situs Live** — (Ganti dengan URL Vercel Anda setelah deploy)
+🔗 **Lihat Situs Live** (https://fiks-portfolio.vercel.app/)
 
 ## 🚀 Teknologi yang Digunakan
 
