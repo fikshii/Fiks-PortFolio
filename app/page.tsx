@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, FC, ReactNode } from 'react';
 import { motion, useInView, useScroll, useTransform, Variants, AnimatePresence } from 'framer-motion';
-import Image from 'next/image'; // Direkomendasikan untuk menggunakan next/image
 
 // --- TIPE DATA ---
 
@@ -230,12 +229,10 @@ const ProjectCard: FC<ProjectCardProps> = ({ project, className = '' }) => {
                 onHoverEnd={() => setIsHovered(false)}
                 onTap={() => setIsHovered(!isHovered)} // Toggle untuk sentuhan di mobile
             >
-                {/* Menggunakan next/image untuk optimasi */}
-                <Image 
+                {/* Kembali menggunakan tag <img> standar */}
+                <img 
                   src={project.imageUrl} 
                   alt={project.title} 
-                  width={500}
-                  height={300}
                   className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105" 
                 />
                 
@@ -497,19 +494,13 @@ const HeroSection = () => {
                 >
                     <div className="relative w-80 h-80 md:w-96 md:h-96" data-hover>
                         <div className="absolute inset-0 bg-gradient-to-br from-sky-300 to-blue-500 rounded-full blur-xl opacity-70"></div>
-                        <motion.div
-                            className="relative w-full h-full"
+                        <motion.img
+                            src={uiTexts.hero.profilePicture}
+                            alt="Foto Taufik Hidayat"
+                            className="relative w-full h-full object-cover rounded-full shadow-2xl border-4 border-white"
                             whileHover={{ scale: 1.05 }}
                             transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-                        >
-                          <Image
-                              src={uiTexts.hero.profilePicture}
-                              alt="Foto Taufik Hidayat"
-                              layout="fill"
-                              objectFit="cover"
-                              className="rounded-full shadow-2xl border-4 border-white"
-                          />
-                        </motion.div>
+                        />
                     </div>
                 </motion.div>
             </div>
