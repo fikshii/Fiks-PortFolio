@@ -154,7 +154,7 @@ const experiences: Experience[] = [
 
 const educationData: Education[] = [
     { name: "ISB Atma Luhur", major: "Teknik Informatika, 2021 – 2025" },
-    { name: "SMK Negeri 1 Siak Hulu", major: "Multimedia, 2017 – 2020" },
+    { name: "SMK Negeri 1 Tempilang", major: "Multimedia, 2017 – 2020" },
 ];
 
 const skills: string[] = [
