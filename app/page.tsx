@@ -666,6 +666,9 @@ const ContactSection = () => (
 const Footer = () => (
   <footer className="bg-white py-8 px-6">
     <div className="max-w-7xl mx-auto text-center text-slate-500">
+      <div className="flex justify-center gap-6 mb-4">
+        {socialLinks.map(link => <SocialIcon key={link.href} {...link} />)}
+      </div> 
       <p className="text-sm">&copy; {new Date().getFullYear()} {uiTexts.footer.copyright}</p>
     </div>
   </footer>
